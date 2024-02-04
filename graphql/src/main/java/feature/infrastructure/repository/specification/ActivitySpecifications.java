@@ -1,5 +1,6 @@
 package feature.infrastructure.repository.specification;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
@@ -9,6 +10,10 @@ public class ActivitySpecifications {
 
     public static Query buildQuery(Criteria... criteriaList) {
         return new Query().addCriteria(new Criteria().andOperator(criteriaList));
+    }
+
+    public static Query buildQueryWithPagination(int page, int size, Criteria... criteriaList){
+        return new Query().addCriteria(new Criteria().andOperator(criteriaList)).with(PageRequest.of(page, size));
     }
 
     public static Criteria priceGreaterThan(double price) {
